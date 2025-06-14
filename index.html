@@ -1,92 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rupesh Bhusare</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rupesh Bhusare — Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
 </head>
+
 <body>
-    <div class="menu-toggle" id="mobile-menu-toggle">&#9776; Menu</div>
-    <div class="menu-toggle1" id="mobile-menu-toggle">&#x2716; Close</div>
+    <button id="hamburger" class="hamburger"><i class="fas fa-bars"></i></button>
+    <aside class="sidebar">
+        <div class="logo">RB</div>
+        <nav>
+            <div class="nav-section">Portfolio</div>
+            <ul class="nav-list">
+                <li><a href="#about"><i class="fas fa-user"></i> About me</a></li>
+                <li><a href="#projects"><i class="far fa-folder"></i> Projects</a></li>
+                <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
+                <li><a href="#gallery"><i class="fas fa-palette"></i> Art Gallery</a></li>
+            </ul>
+        </nav>
+        <div class="connect">
+            <div class="nav-section">Connect</div>
+            <ul class="nav-list">
+                <li><a href="#"><i class="fab fa-github"></i> Github</a></li>
+                <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                <li><a href="#"><i class="fas fa-code"></i> LeetCode</a></li>
+            </ul>
+        </div>
+    </aside>
 
-    <nav id="navbar">
-        <a href="#"><img src="Image/aboutme.png" style="width: 20px; height: 20px;"> About me</a>
-        <a href="#""><img src="Image/projects.png" style="width: 20px; height: 20px;"> Projects</a>
-        <a href="https://github.com/rupeshbhusare77" target="_blank"><img src="Image/github.png" style="width: 20px; height: 20px;"> Github</a>
-        <a href="https://www.linkedin.com/in/rupesh-bhusare-7ba246256/" target="_blank"><img src="Image/linkedin.png" style="width: 20px; height: 20px;"> LinkedIn</a>
-        <a href="https://leetcode.com/u/rupesh_bhusare_77/" target="_blank"><img src="Image/leetcode.png" style="width: 20px; height: 20px;"> Leetcode</a>
-        <a href="https://codeforces.com/profile/Rupesh_Bhusare" target="_blank"><img src="Image/codeforces.png" style="width: 20px; height: 20px;"> Codeforces</a>
-        <a href="https://www.instagram.com/rupesh_bhusare_77/?hl=en" target="_blank"><img src="Image/instagram.png" style="width: 20px; height: 20px;"> Instagram</a>
-
-        <!-- <a class="contact-btn" href="#"><img src="images/contact.png" style="width: 24px; height: 24px;"> Contact Me</a> -->
-    </nav>
-    
-    
     <main>
-        <div class="first" >
-            <div class="profile">
-                <section class="profile-card">
-                    <img id="my-pic" src="Image/IMG_20220817_101920_506-modified (1).png" alt="Rupesh Bhusare" style="background-color: #3a2b4438; height: 150px;width: 150px; border-radius: 70%;">
-                </section>
-                <section class="profile-info">
-                    <section class="profile-name">
-                        <h1 style=" margin: 2px;">Rupesh Bhusare</h1>
-                    </section>
-                    <section class="additional-info">
-                        <p style="margin: 2px;">@RupeshBhusare</p>
-                    </section>
-                </section>
+        <!-- Hero / About Me -->
+        <section id="about" class="section hero">
+            <div class="card hero-card anim-hidden">
+                <div class="profile-pic"></div>
+                <div>
+                    <h1>Rupesh Bhusare</h1>
+                    <p class="handle">@RupeshBhusare</p>
+                    <p class="bio">
+                        Frontend Developer &amp; Designer passionate about creating beautiful,
+                        functional web experiences. I specialize in React, TypeScript, and
+                        modern design systems to bring ideas to life with cutting‑edge
+                        technologies and innovative solutions.
+                    </p>
+                    <div class="btn-group">
+                        <a href="#" class="btn primary">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                        <a href="#" class="btn outline">
+                            <i class="fas fa-envelope"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="second">
-            <!-- Repeat the socials section as needed -->
-            <section class="socials">
-                <h2>Socials</h2>
-                <a href="#"><img src="images/spotify.png" alt="Spotify"></a>
-                <a href="#"><img src="images/amazon.png" alt="Amazon"></a>
-                <!-- Add more social links here -->
-            </section>
+        </section>
 
-            <!-- Repeat the socials section as needed -->
-            <section class="socials">
-                <h2>Socials</h2>
-                <a href="#"><img src="images/spotify.png" alt="Spotify"></a>
-                <a href="#"><img src="images/amazon.png" alt="Amazon"></a>
-                <!-- Add more social links here -->
-            </section>
-            <section class="socials">
-                <h2>Socials</h2>
-                <a href="#"><img src="images/spotify.png" alt="Spotify"></a>
-                <a href="#"><img src="images/amazon.png" alt="Amazon"></a>
-                <!-- Add more social links here -->
-            </section>
-        </div>
-        <div class="second">
-            <!-- Repeat the socials section as needed -->
-            <section class="socials">
-                <h2>Socials</h2>
-                <a href="#"><img src="images/spotify.png" alt="Spotify"></a>
-                <a href="#"><img src="images/amazon.png" alt="Amazon"></a>
-                <!-- Add more social links here -->
-            </section>
+        <!-- Projects -->
+        <section id="projects" class="section">
+            <h2>Projects</h2>
+            <div class="grid projects-grid anim-hidden">
+                <!-- Repeat this card for each project -->
+                <div class="card project-card">
+                    <div class="project-img"
+                        style="background-image: url('https://img.freepik.com/free-photo/flying-frog-sitting-green-leaves_488145-308.jpg?ga=GA1.1.1557396542.1721218454&semt=ais_hybrid&w=740')">
+                    </div>
+                    <div class="project-info">
+                        <h3>Spotify Clone</h3>
+                        <p>Full‑stack music streaming app with React and Node.js</p>
+                        <div class="tags">
+                            <span>React</span><span>Node.js</span><span>MongoDB</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn primary small">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="icon-btn"><i class="fas fa-star"></i></a>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Repeat the socials section as needed -->
-            <section class="socials">
-                <h2>Socials</h2>
-                <a href="#"><img src="images/spotify.png" alt="Spotify"></a>
-                <a href="#"><img src="images/amazon.png" alt="Amazon"></a>
-                <!-- Add more social links here -->
-            </section>
-            <section class="socials">
-                <h2>Socials</h2>
-                <a href="#"><img src="images/spotify.png" alt="Spotify"></a>
-                <a href="#"><img src="images/amazon.png" alt="Amazon"></a>
-                <!-- Add more social links here -->
-            </section>
-        </div>
+                <!-- copy & update details for each of your 6 projects -->
+                <!-- E‑commerce App -->
+                <div class="card project-card anim-hidden">
+                    <div class="project-img"
+                        style="background-image: url('https://img.freepik.com/free-photo/flying-frog-sitting-green-leaves_488145-308.jpg?ga=GA1.1.1557396542.1721218454&semt=ais_hybrid&w=740')">
+                    </div>
+                    <div class="project-info">
+                        <h3>E‑commerce App</h3>
+                        <p>Modern shopping platform with advanced filtering</p>
+                        <div class="tags">
+                            <span>Vue.js</span><span>Express</span><span>Stripe</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn primary small">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="icon-btn"><i class="fas fa-star"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather App -->
+                <div class="card project-card anim-hidden">
+                    <div class="project-img"
+                        style="background-image: url('https://img.freepik.com/free-photo/flying-frog-sitting-green-leaves_488145-308.jpg?ga=GA1.1.1557396542.1721218454&semt=ais_hybrid&w=740')">
+                    </div>
+                    <div class="project-info">
+                        <h3>Weather App</h3>
+                        <p>Real‑time weather data with beautiful animations</p>
+                        <div class="tags">
+                            <span>React</span><span>API</span><span>CSS3</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn primary small">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="icon-btn"><i class="fas fa-star"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Site -->
+                <div class="card project-card anim-hidden">
+                    <div class="project-img"
+                        style="background-image: url('https://img.freepik.com/free-photo/flying-frog-sitting-green-leaves_488145-308.jpg?ga=GA1.1.1557396542.1721218454&semt=ais_hybrid&w=740')">
+                    </div>
+                    <div class="project-info">
+                        <h3>Portfolio Site</h3>
+                        <p>My personal portfolio, built with modern CSS & JS</p>
+                        <div class="tags">
+                            <span>HTML5</span><span>CSS3</span><span>JS</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn primary small">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="icon-btn"><i class="fas fa-star"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Todo App -->
+                <div class="card project-card anim-hidden">
+                    <div class="project-img"
+                        style="background-image: url('https://img.freepik.com/free-photo/flying-frog-sitting-green-leaves_488145-308.jpg?ga=GA1.1.1557396542.1721218454&semt=ais_hybrid&w=740')">
+                    </div>
+                    <div class="project-info">
+                        <h3>Todo App</h3>
+                        <p>Simple, elegant task management with localStorage</p>
+                        <div class="tags">
+                            <span>JavaScript</span><span>HTML</span><span>CSS</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn primary small">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="icon-btn"><i class="fas fa-star"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Application -->
+                <div class="card project-card anim-hidden">
+                    <div class="project-img"
+                        style="background-image: url('https://img.freepik.com/free-photo/flying-frog-sitting-green-leaves_488145-308.jpg?ga=GA1.1.1557396542.1721218454&semt=ais_hybrid&w=740')">
+                    </div>
+                    <div class="project-info">
+                        <h3>Chat Application</h3>
+                        <p>Real‑time chat with Socket.io and Node.js</p>
+                        <div class="tags">
+                            <span>Node.js</span><span>Socket.io</span><span>Express</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn primary small">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="icon-btn"><i class="fas fa-star"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="section">
+            <h2>Skills</h2>
+            <div class="grid skills-grid anim-hidden">
+                <div class="card skill-card">
+                    <h3>Frontend</h3>
+                    <div class="skill-list">
+                        <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+                        <span>React</span><span>TypeScript</span><span>Tailwind</span>
+                    </div>
+                </div>
+                <div class="card skill-card">
+                    <h3>Backend</h3>
+                    <div class="skill-list">
+                        <span>Node.js</span><span>Express</span><span>MongoDB</span>
+                        <span>PostgreSQL</span><span>Firebase</span>
+                    </div>
+                </div>
+                <div class="card skill-card">
+                    <h3>Tools &amp; Technologies</h3>
+                    <div class="skill-list">
+                        <span>Git</span><span>Docker</span><span>AWS</span>
+                        <span>Figma</span><span>VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Art Gallery -->
+        <section id="gallery" class="section">
+            <h2>Art Gallery</h2>
+            <div class="grid gallery-grid anim-hidden">
+                <div class="card art-card">
+                    <div class="art-img"
+                        style="background-image: url('https://images.pexels.com/photos/16232840/pexels-photo-16232840/free-photo-of-boston.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+                    </div>
+                    <div class="project-info">
+                        <h4>Urban Landscape</h4>
+                        <p>Photography</p>
+                    </div>
+                </div>
+                <div class="card art-card">
+                    <div class="art-img"
+                        style="background-image: url('https://images.pexels.com/photos/16232840/pexels-photo-16232840/free-photo-of-boston.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+                    </div>
+                    <div class="project-info">
+                        <h4>Urban Landscape</h4>
+                        <p>Photography</p>
+                    </div>
+                </div>
+                <div class="card art-card">
+                    <div class="art-img"
+                        style="background-image: url('https://images.pexels.com/photos/16232840/pexels-photo-16232840/free-photo-of-boston.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+                    </div>
+                    <div class="project-info">
+                        <h4>Urban Landscape</h4>
+                        <p>Photography</p>
+                    </div>
+                </div>
+                <div class="card art-card">
+                    <div class="art-img"
+                        style="background-image: url('https://images.pexels.com/photos/16232840/pexels-photo-16232840/free-photo-of-boston.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+                    </div>
+                    <div class="project-info">
+                        <h4>Urban Landscape</h4>
+                        <p>Photography</p>
+                    </div>
+                </div>
+                <div class="card art-card">
+                    <div class="art-img"
+                        style="background-image: url('https://images.pexels.com/photos/16232840/pexels-photo-16232840/free-photo-of-boston.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+                    </div>
+                    <div class="project-info">
+                        <h4>Urban Landscape</h4>
+                        <p>Photography</p>
+                    </div>
+                </div>
+                <div class="card art-card">
+                    <div class="art-img"
+                        style="background-image: url('https://images.pexels.com/photos/16232840/pexels-photo-16232840/free-photo-of-boston.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')">
+                    </div>
+                    <div class="project-info">
+                        <h4>Urban Landscape</h4>
+                        <p>Photography</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    
+    <!-- Art Preview Modal -->
+    <div id="art-modal" class="art-modal">
+        <div class="art-modal-content">
+            <button class="art-modal-close" aria-label="Close">&times;</button>
+            <div class="art-modal-img"></div>
+            <div class="art-modal-caption"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
+
 </html>
