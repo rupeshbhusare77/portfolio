@@ -192,7 +192,7 @@ main {
     font-size: 4rem;
     width: 90px;
     height: 90px;
-    background: url('https://pe-images.s3.amazonaws.com/basics/cc/image-size-resolution/resize-images-for-print/image-cropped-8x10.jpg') center/cover no-repeat, linear-gradient(135deg, #5f3cfc, #9333ea);
+    background: url('https://raw.githubusercontent.com/rupeshbhusare77/portfolio/refs/heads/main/Rupesh.png') center/cover no-repeat, linear-gradient(135deg, #5f3cfc, #9333ea);
     border-radius: 50%;
     display: flex;
     align-items: center;
