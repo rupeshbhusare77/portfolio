@@ -322,7 +322,7 @@ main {
 .skill-list span:nth-child(1) { background: #ffb34733; color: #ffb347; } /* orange */
 .skill-list span:nth-child(2) { background: #87ceeb33; color: #87ceeb; } /* sky blue */
 .skill-list span:nth-child(3) { background: #90ee9033; color: #90ee90; } /* light green */
-.skill-list span:nth-child(4) { background: #dda0dd33; color: #b266ff; } /* purple */
+.skill-list span:nth-child(4) { background: #dda0dd33; color: #dcbcff; } /* purple */
 .skill-list span:nth-child(5) { background: #ffd70033; color: #ffd700; } /* gold */
 .skill-list span:nth-child(6) { background: #ff696133; color: #ff6961; } /* red */
 
