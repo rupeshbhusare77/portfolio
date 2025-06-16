@@ -125,3 +125,29 @@ document.addEventListener('keydown', (e) => {
         document.body.style.overflow = '';
     }
 });
+
+
+
+function createBubble() {
+    const container = document.querySelector('.bubble-container');
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+
+    // Smaller size
+    const size = Math.random() * 8 + 7; // 7px to 15px
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    bubble.style.left = `${Math.random() * 98}%`;
+
+    // Slower animation
+    bubble.style.animationDuration = `${4.5 + Math.random()}s`;
+
+    container.appendChild(bubble);
+
+    bubble.addEventListener('animationend', () => {
+        bubble.remove();
+    });
+}
+
+// Less frequent bubbles for subtlety
+setInterval(createBubble, 600); // every 600ms
