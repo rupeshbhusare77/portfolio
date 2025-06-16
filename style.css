@@ -583,3 +583,43 @@ body {
         max-width: 90vw;
     }
 }
+
+
+.bubble-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 15vh;
+    pointer-events: none;
+    z-index: 10;
+    overflow: visible;
+}
+
+.bubble {
+    position: absolute;
+    bottom: 0;
+    border-radius: 50%;
+    opacity: 0.4; /* Lower opacity */
+    background: linear-gradient(135deg, #aeefff 0%, #6ec6ff 100%);
+    box-shadow: 0 0 16px 4px #aeefff88, 0 0 32px 8px #6ec6ff44; /* Glow effect */
+    animation: bubble-rise 5s linear forwards; /* Slower speed */
+    will-change: transform, opacity;
+}
+
+@keyframes bubble-rise {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.4;
+    }
+    80% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-15vh) scale(0.8);
+        opacity: 0;
+    }
+}
