@@ -369,7 +369,7 @@ main {
 .art-img {
     /* width: 100%; */
     /* height: auto; */
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 9 / 12;
     /* maintain square aspect ratio */
     /* object-fit: cover; */
     /* border-radius: .5rem; */
@@ -538,7 +538,7 @@ body {
 .art-modal-img {
     width: 320px;
     max-width: 70vw;
-    aspect-ratio: 9/16;
+    aspect-ratio: 9/12;
     background-size: cover;
     background-position: center;
     border-radius: 1rem;
