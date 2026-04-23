@@ -1,356 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rupesh Bhusare — Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rupesh Bhusare — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
 </head>
-
 <body>
-    <button id="hamburger" class="hamburger"><i class="fas fa-bars"></i></button>
-    <aside class="sidebar">
-        <div class="logo">RB</div>
-        <nav>
-            <div class="nav-section">Portfolio</div>
-            <ul class="nav-list">
-                <li><a href="#about"><i class="fas fa-user"></i> About me</a></li>
-                <li><a href="#projects"><i class="far fa-folder"></i> Projects</a></li>
-                <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
-                <li><a href="#gallery"><i class="fas fa-palette"></i> Art Gallery</a></li>
-            </ul>
-        </nav>
-        <div class="connect">
-            <div class="nav-section">Connect</div>
-            <ul class="nav-list">
-                <li><a href="https://github.com/rupeshbhusare77"><i class="fab fa-github" target="_blank" rel="noopener"></i> Github</a></li>
-                <li><a href="https://www.linkedin.com/in/rupesh-bhusare-7ba246256/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>
-                        LinkedIn</a></li>
-                <li><a href="https://www.instagram.com/rupesh_bhusare_77/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i>
-                        Instagram</a></li>
-                <li>
-                    <a href="https://leetcode.com/u/rupesh_bhusare_77/" target="_blank" rel="noopener">
-                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/leetcode.svg"
-                            alt="LeetCode"
-                            style="width:1em;height:1em;vertical-align:-0.125em;;filter:invert(0.7) sepia(1) saturate(0) hue-rotate(10deg);">
-                        LeetCode
-                    </a>
-                </li></a>
-                <li>
-                    <a href="https://codeforces.com/profile/Rupesh_Bhusare" target="_blank" rel="noopener">
-                        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/codeforces.svg"
-                            alt="Codeforces"
-                            style="width:1em;height:1em;vertical-align:-0.125em;filter:invert(0.7) sepia(1) saturate(0) hue-rotate(10deg);">
-                        Codeforces
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </aside>
 
-    <main>
-        <!-- Hero / About Me -->
-        <section id="about" class="section hero">
-            <div class="card hero-card anim-hidden">
-                <div class="profile-pic"></div>
-                <div>
-                    <h1>Rupesh Bhusare</h1>
-                    <p class="handle">@RupeshBhusare</p>
-                    <p class="bio">
-                        CSE undergrad at IIT Goa. Passionate about coding, creating visuals, and
-                        solving real-world problems. Enjoys exploring tech and expressing ideas through digital
-                        creativity.
-                    </p>
-                    <!--                     <div class="btn-group">
-                        <a href="#" class="btn primary">
-                            <i class="fas fa-download"></i> Download CV
-                        </a>
-                        <a href="#" class="btn outline">
-                            <i class="fas fa-envelope"></i> Contact Me
-                        </a>
-                    </div> -->
-                </div>
-            </div>
-        </section>
+  <!-- Noise overlay -->
+  <div class="noise"></div>
 
-        <!-- Projects -->
-        <section id="projects" class="section">
-            <h2>Projects</h2>
-            <div class="grid projects-grid anim-hidden">
-                <div class="card project-card">
-                    <div class="project-img"
-                        style="background-image: url('./Image/gv.png')">
-                    </div>
-                    <div class="project-info">
-                        <h3>GV coding scheme extractor</h3>
-                        <p>Generator for coding schemes satisfying the Gilbert–Varshamov bound.</p>
-                        <div class="tags">
-                            <span>Cryptography</span><span>Python</span><span>HTML</span><span>CSS</span><span>JS</span>
-                        </div>
-                        <div class="btn-group">
-                            <a href="https://github.com/rupeshbhusare77/gv-coding-scheme-extractor" target="_blank" rel="noopener"
-                                class="btn primary small">
-                                <i class="fas fa-external-link-alt"></i> GitHub
-                            </a>
-<!--                             <a href="#" class="icon-btn"><i class="fas fa-star"></i></a> -->
-                        </div>
-                    </div>
-                </div>
+  <!-- Cursor glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
 
-                <div class="card project-card anim-hidden">
-                    <div class="project-img"
-                        style="background-image: url('./Image/MLFQ.png')">
-                    </div>
-                    <div class="project-info">
-                        <h3>Multi Level Feedback Queue Simulator</h3>
-                        <p>Visual simulator to demonstrate MLFQ CPU scheduling with dynamic queue management.</p>
-                        <div class="tags">
-                            <span>Operating system</span><span>Web</span>
-                        </div>
-                        <div class="btn-group">
-                            <a href="https://github.com/vaibhavgupta856/Multi-Level-Feedback-Queue-Simulator" target="_blank" rel="noopener"
-                                class="btn primary small">
-                                <i class="fas fa-external-link-alt"></i> GitHub
-                            </a>
-<!--                             <a href="#" class="icon-btn"><i class="fas fa-star"></i></a> -->
-                        </div>
-                    </div>
-                </div>
+  <!-- Hamburger -->
+  <button id="hamburger" class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 
-                <div class="card project-card anim-hidden">
-                    <div class="project-img"
-                        style="background-image: url('./Image/TCP.png')">
-                    </div>
-                    <div class="project-info">
-                        <h3>TCP congestion control</h3>
-                        <p>Simulation and analysis of TCP congestion control mechanisms using graphs and metrics.</p>
-                        <div class="tags">
-                            <span>Computer Networks</span><span>Python</span>
-                        </div>
-                        <div class="btn-group">
-                            <a href="https://github.com/rupeshbhusare77/TCP-Congestion-control" target="_blank" rel="noopener"
-                                class="btn primary small">
-                                <i class="fas fa-external-link-alt"></i> GitHub
-                            </a>
-<!--                             <a href="#" class="icon-btn"><i class="fas fa-star"></i></a> -->
-                        </div>
-                    </div>
-                </div>
+  <!-- Sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-                <!-- Portfolio Site -->
-                <div class="card project-card anim-hidden">
-                    <div class="project-img"
-                        style="background-image: url('./Image/portfolio.png')">
-                    </div>
-                    <div class="project-info">
-                        <h3>Portfolio Site</h3>
-                        <p>My personal portfolio, built with modern CSS & JS</p>
-                        <div class="tags">
-                            <span>Web Development</span><span>HTML5</span><span>CSS3</span><span>JS</span>
-                        </div>
-                        <div class="btn-group">
-                            <a href="https://github.com/rupeshbhusare77/portfolio" target="_blank" rel="noopener" class="btn primary small">
-                                <i class="fas fa-external-link-alt"></i> GitHub
-                            </a>
-<!--                             <a href="#" class="icon-btn"><i class="fas fa-star"></i></a> -->
-                        </div>
-                    </div>
-                </div>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="logo">
+        <span>RB</span>
+        <div class="logo-dot"></div>
+      </div>
 
-                <div class="card project-card anim-hidden">
-                    <div class="project-img"
-                        style="background-image: url('./Image/Quickclick.png')">
-                    </div>
-                    <div class="project-info">
-                        <h3>QuickClick App</h3>
-                        <p>Simple android game to test your reaction.</p>
-                        <div class="tags">
-                            <span>Android Development</span><span>Kotlin</span><span>XML</span>
-                        </div>
-                        <div class="btn-group">
-                            <a href="https://github.com/rupeshbhusare77/QuickClick_app" target="_blank" rel="noopener" class="btn primary small">
-                                <i class="fas fa-external-link-alt"></i> GitHub
-                            </a>
-<!--                             <a href="#" class="icon-btn"><i class="fas fa-star"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="card project-card anim-hidden">
-                    <div class="project-img"
-                        style="background-image: url('./Image/projects.png')">
-                    </div>
-                    <div class="project-info">
-                        <h3>More Projects</h3>
-                        <p>Visit for more of my projects.</p>
-                        <div class="tags">
-                            <!--                             <span>Web Development</span><span>HTML5</span><span>CSS3</span><span>JS</span> -->
-                        </div>
-                        <div class="btn-group">
-                            <a href="https://github.com/rupeshbhusare77" target="_blank" rel="noopener" class="btn primary small">
-                                <i class="fas fa-external-link-alt"></i> GitHub
-                            </a>
-<!--                             <a href="#" class="icon-btn"><i class="fas fa-star"></i></a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <nav class="nav">
+        <p class="nav-label">Portfolio</p>
+        <ul class="nav-list">
+          <li><a href="#about" class="nav-link"><span class="nav-icon"><i class="fas fa-user"></i></span><span>About</span><span class="nav-arrow">→</span></a></li>
+          <li><a href="#projects" class="nav-link"><span class="nav-icon"><i class="far fa-folder"></i></span><span>Projects</span><span class="nav-arrow">→</span></a></li>
+          <li><a href="#skills" class="nav-link"><span class="nav-icon"><i class="fas fa-code"></i></span><span>Skills</span><span class="nav-arrow">→</span></a></li>
+          <li><a href="#gallery" class="nav-link"><span class="nav-icon"><i class="fas fa-palette"></i></span><span>Gallery</span><span class="nav-arrow">→</span></a></li>
+        </ul>
+      </nav>
 
+      <div class="connect">
+        <p class="nav-label">Connect</p>
+        <ul class="nav-list connect-list">
+          <li><a href="https://github.com/rupeshbhusare77" target="_blank" rel="noopener" class="nav-link"><span class="nav-icon"><i class="fab fa-github"></i></span><span>GitHub</span></a></li>
+          <li><a href="https://www.linkedin.com/in/rupesh-bhusare-7ba246256/" target="_blank" rel="noopener" class="nav-link"><span class="nav-icon"><i class="fab fa-linkedin"></i></span><span>LinkedIn</span></a></li>
+          <li><a href="https://www.instagram.com/rupesh_bhusare_77/" target="_blank" rel="noopener" class="nav-link"><span class="nav-icon"><i class="fab fa-instagram"></i></span><span>Instagram</span></a></li>
+          <li>
+            <a href="https://leetcode.com/u/rupesh_bhusare_77/" target="_blank" rel="noopener" class="nav-link">
+              <span class="nav-icon">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/leetcode.svg" alt="LeetCode" class="si-icon">
+              </span>
+              <span>LeetCode</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://codeforces.com/profile/Rupesh_Bhusare" target="_blank" rel="noopener" class="nav-link">
+              <span class="nav-icon">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/codeforces.svg" alt="Codeforces" class="si-icon">
+              </span>
+              <span>Codeforces</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-        <!-- Skills -->
-        <section id="skills" class="section">
-            <h2>Skills</h2>
-            <div class="grid skills-grid anim-hidden">
-                <div class="card skill-card">
-                    <h3>Frontend</h3>
-                    <div class="skill-list">
-                        <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
-                        <span>React</span><span>Tailwind</span><span>Figma</span>
-                    </div>
-                </div>
-                <div class="card skill-card">
-                    <h3>Backend</h3>
-                    <div class="skill-list">
-                        <span>Node.js</span><span>MongoDB</span><span>Express</span>
-                        <span>MySQL</span><span>Firebase</span>
-                    </div>
-                </div>
-                <div class="card skill-card">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-list">
-                        <span>C</span><span>C++</span>
-                        <span>Python</span><span>VHDL</span>
-                    </div>
-                </div>
-                <div class="card skill-card">
-                    <h3>Tools &amp; Technologies</h3>
-                    <div class="skill-list">
-                        <span>Git</span><span>Postman</span><span>AWS</span><span>Linux</span>
-                        <span>Figma</span><span>VS Code</span>
-                    </div>
-                </div>
-                <div class="card skill-card">
-                    <h3>Subjects and Domains</h3>
-                    <div class="skill-list">
-                        <span>Operating system</span><span>AI & ML</span><span>Computer Networks</span>
-                        <span>Compiler design</span><span>DBMS</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Art Gallery -->
-        <section id="gallery" class="section">
-            <h2>My sketches</h2>
-            <div class="grid gallery-grid anim-hidden">
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/berserk.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Guts</h4>
-                        <p>From Berserk, fierce warrior with a massive sword</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/Maharaj.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Chhatrapati Shivaji Maharaj</h4>
-                        <p>Maratha king and founder of Swarajya</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/muzan.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Muzan Kibutsuji</h4>
-                        <p>Main antagonist from Demon Slayer</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/mha.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Deku (Izuku Midoriya)</h4>
-                        <p>Hero-in-training from My Hero Academia</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/Tanjiro.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Tanjiro Kamado</h4>
-                        <p>Kind-hearted demon slayer from Demon Slayery</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/dog.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Courage</h4>
-                        <p>Lovable scaredy dog from Courage the Cowardly Dog</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/normal.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Boy by River</h4>
-                        <p>Peaceful sketch of a child playing Guitar in nature</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/normal1.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Man with flute</h4>
-                        <p>Peaceful sketch of a man playing Flute in nature</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/gate.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Dakshin Dwar</h4>
-                        <p>Southern Gate at Jotiba Temple</p>
-                    </div>
-                </div>
-                <div class="card art-card">
-                    <div class="art-img"
-                        style="background-image: url('./Image/treehouse.jpg')">
-                    </div>
-                    <div class="project-info">
-                        <h4>Treehouse</h4>
-                        <p>Whimsical home built into a tree</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-
-    <!-- Art Preview Modal -->
-    <div id="art-modal" class="art-modal">
-        <div class="art-modal-content">
-            <button class="art-modal-close" aria-label="Close">&times;</button>
-            <div class="art-modal-img"></div>
-            <div class="art-modal-caption"></div>
-        </div>
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <span class="status-text">Open to opportunities</span>
+      </div>
     </div>
-        <!-- Add this just before </body> -->
-<div class="bubble-container"></div>
-    <script src="script.js"></script>
-</body>
+  </aside>
 
+  <!-- Main -->
+  <main id="main">
+
+    <!-- Hero -->
+    <section id="about" class="section hero-section">
+      <div class="hero-bg-grid"></div>
+      <div class="hero-content">
+        <div class="hero-left reveal">
+          <div class="profile-ring">
+            <div class="profile-pic"></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <p class="hero-tag reveal reveal-delay-1"><span class="tag-dot"></span> CSE @ IIT Goa</p>
+          <h1 class="hero-name reveal reveal-delay-2">Rupesh<br><span class="accent">Bhusare</span></h1>
+          <p class="hero-handle reveal reveal-delay-3">@RupeshBhusare</p>
+          <p class="hero-bio reveal reveal-delay-4">
+            Passionate about coding, creating visuals, and solving real-world problems. Enjoys exploring tech and expressing ideas through digital creativity.
+          </p>
+          <div class="hero-chips reveal reveal-delay-5">
+            <span class="chip">Competitive Coding</span>
+            <span class="chip">Web Dev</span>
+            <span class="chip">Digital Art</span>
+            <span class="chip">Android Dev</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <div class="section-header reveal">
+        <span class="section-num">01</span>
+        <h2>Projects</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card reveal">
+          <div class="project-img" style="background-image: url('./Image/gv.png')">
+            <div class="project-img-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>GV Coding Scheme Extractor</h3>
+            <p>Generator for coding schemes satisfying the Gilbert–Varshamov bound.</p>
+            <div class="tags"><span>Cryptography</span><span>Python</span><span>HTML</span><span>CSS</span><span>JS</span></div>
+            <a href="https://github.com/rupeshbhusare77/gv-coding-scheme-extractor" target="_blank" rel="noopener" class="project-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-img" style="background-image: url('./Image/MLFQ.png')">
+            <div class="project-img-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>MLFQ Simulator</h3>
+            <p>Visual simulator to demonstrate MLFQ CPU scheduling with dynamic queue management.</p>
+            <div class="tags"><span>OS</span><span>Web</span></div>
+            <a href="https://github.com/vaibhavgupta856/Multi-Level-Feedback-Queue-Simulator" target="_blank" rel="noopener" class="project-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-img" style="background-image: url('./Image/TCP.png')">
+            <div class="project-img-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>TCP Congestion Control</h3>
+            <p>Simulation and analysis of TCP congestion control mechanisms using graphs and metrics.</p>
+            <div class="tags"><span>Networks</span><span>Python</span></div>
+            <a href="https://github.com/rupeshbhusare77/TCP-Congestion-control" target="_blank" rel="noopener" class="project-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-img" style="background-image: url('./Image/portfolio.png')">
+            <div class="project-img-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>Portfolio Site</h3>
+            <p>My personal portfolio, built with modern CSS & JS.</p>
+            <div class="tags"><span>Web Dev</span><span>HTML5</span><span>CSS3</span><span>JS</span></div>
+            <a href="https://github.com/rupeshbhusare77/portfolio" target="_blank" rel="noopener" class="project-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-img" style="background-image: url('./Image/Quickclick.png')">
+            <div class="project-img-overlay"></div>
+          </div>
+          <div class="project-body">
+            <h3>QuickClick App</h3>
+            <p>Simple android game to test your reaction time.</p>
+            <div class="tags"><span>Android</span><span>Kotlin</span><span>XML</span></div>
+            <a href="https://github.com/rupeshbhusare77/QuickClick_app" target="_blank" rel="noopener" class="project-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card project-card--more reveal reveal-delay-2">
+          <div class="more-projects-inner">
+            <div class="more-icon"><i class="fab fa-github"></i></div>
+            <h3>More Projects</h3>
+            <p>Explore all my repositories on GitHub.</p>
+            <a href="https://github.com/rupeshbhusare77" target="_blank" rel="noopener" class="project-link">
+              Visit GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <div class="section-header reveal">
+        <span class="section-num">02</span>
+        <h2>Skills</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-card reveal">
+          <div class="skill-card-icon"><i class="fas fa-laptop-code"></i></div>
+          <h3>Frontend</h3>
+          <div class="skill-list">
+            <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+            <span>React</span><span>Tailwind</span><span>Figma</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-1">
+          <div class="skill-card-icon"><i class="fas fa-server"></i></div>
+          <h3>Backend</h3>
+          <div class="skill-list">
+            <span>Node.js</span><span>MongoDB</span><span>Express</span>
+            <span>MySQL</span><span>Firebase</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-2">
+          <div class="skill-card-icon"><i class="fas fa-terminal"></i></div>
+          <h3>Languages</h3>
+          <div class="skill-list">
+            <span>C</span><span>C++</span><span>Python</span><span>VHDL</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-3">
+          <div class="skill-card-icon"><i class="fas fa-tools"></i></div>
+          <h3>Tools</h3>
+          <div class="skill-list">
+            <span>Git</span><span>Postman</span><span>AWS</span><span>Linux</span>
+            <span>Figma</span><span>VS Code</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal reveal-delay-4">
+          <div class="skill-card-icon"><i class="fas fa-brain"></i></div>
+          <h3>Domains</h3>
+          <div class="skill-list">
+            <span>OS</span><span>AI & ML</span><span>Networks</span>
+            <span>Compiler Design</span><span>DBMS</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="section">
+      <div class="section-header reveal">
+        <span class="section-num">03</span>
+        <h2>My Sketches</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="gallery-track-wrapper">
+        <div class="gallery-track" id="galleryTrack">
+          <div class="art-card" data-title="Guts" data-desc="From Berserk, fierce warrior with a massive sword">
+            <div class="art-img" style="background-image: url('./Image/berserk.jpg')"></div>
+            <div class="art-info"><h4>Guts</h4><p>Berserk</p></div>
+          </div>
+          <div class="art-card" data-title="Chhatrapati Shivaji Maharaj" data-desc="Maratha king and founder of Swarajya">
+            <div class="art-img" style="background-image: url('./Image/Maharaj.jpg')"></div>
+            <div class="art-info"><h4>Shivaji Maharaj</h4><p>Maratha King</p></div>
+          </div>
+          <div class="art-card" data-title="Muzan Kibutsuji" data-desc="Main antagonist from Demon Slayer">
+            <div class="art-img" style="background-image: url('./Image/muzan.jpg')"></div>
+            <div class="art-info"><h4>Muzan</h4><p>Demon Slayer</p></div>
+          </div>
+          <div class="art-card" data-title="Deku (Izuku Midoriya)" data-desc="Hero-in-training from My Hero Academia">
+            <div class="art-img" style="background-image: url('./Image/mha.jpg')"></div>
+            <div class="art-info"><h4>Deku</h4><p>My Hero Academia</p></div>
+          </div>
+          <div class="art-card" data-title="Tanjiro Kamado" data-desc="Kind-hearted demon slayer from Demon Slayer">
+            <div class="art-img" style="background-image: url('./Image/Tanjiro.jpg')"></div>
+            <div class="art-info"><h4>Tanjiro</h4><p>Demon Slayer</p></div>
+          </div>
+          <div class="art-card" data-title="Courage" data-desc="Lovable scaredy dog from Courage the Cowardly Dog">
+            <div class="art-img" style="background-image: url('./Image/dog.jpg')"></div>
+            <div class="art-info"><h4>Courage</h4><p>Cowardly Dog</p></div>
+          </div>
+          <div class="art-card" data-title="Boy by River" data-desc="Peaceful sketch of a child playing Guitar in nature">
+            <div class="art-img" style="background-image: url('./Image/normal.jpg')"></div>
+            <div class="art-info"><h4>Boy by River</h4><p>Original</p></div>
+          </div>
+          <div class="art-card" data-title="Man with Flute" data-desc="Peaceful sketch of a man playing Flute in nature">
+            <div class="art-img" style="background-image: url('./Image/normal1.jpg')"></div>
+            <div class="art-info"><h4>Man with Flute</h4><p>Original</p></div>
+          </div>
+          <div class="art-card" data-title="Dakshin Dwar" data-desc="Southern Gate at Jotiba Temple">
+            <div class="art-img" style="background-image: url('./Image/gate.jpg')"></div>
+            <div class="art-info"><h4>Dakshin Dwar</h4><p>Jotiba Temple</p></div>
+          </div>
+          <div class="art-card" data-title="Treehouse" data-desc="Whimsical home built into a tree">
+            <div class="art-img" style="background-image: url('./Image/treehouse.jpg')"></div>
+            <div class="art-info"><h4>Treehouse</h4><p>Original</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-nav reveal">
+        <button class="gallery-btn" id="galleryPrev" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+        <div class="gallery-dots" id="galleryDots"></div>
+        <button class="gallery-btn" id="galleryNext" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Art Modal -->
+  <div id="art-modal" class="art-modal" role="dialog" aria-modal="true">
+    <div class="art-modal-content">
+      <button class="art-modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="art-modal-img" id="modalImg"></div>
+      <div class="art-modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
