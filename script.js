@@ -1,220 +1,163 @@
-/* ============================================
+/* ===========================
    CURSOR GLOW
-============================================ */
-const cursorGlow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', (e) => {
-  cursorGlow.style.left = e.clientX + 'px';
-  cursorGlow.style.top  = e.clientY + 'px';
-});
+=========================== */
+const glow = document.getElementById('cursorGlow');
+let mx = 0, my = 0, gx = 0, gy = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animGlow() {
+  gx += (mx - gx) * 0.12;
+  gy += (my - gy) * 0.12;
+  if (glow) { glow.style.left = gx + 'px'; glow.style.top = gy + 'px'; }
+  requestAnimationFrame(animGlow);
+})();
 
-/* ============================================
-   HAMBURGER / SIDEBAR
-============================================ */
-const hamburger      = document.getElementById('hamburger');
-const sidebar        = document.getElementById('sidebar');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
+/* ===========================
+   SIDEBAR
+=========================== */
+const hamburger = document.getElementById('hamburger');
+const sidebar   = document.getElementById('sidebar');
+const overlay   = document.getElementById('sidebarOverlay');
 
-function openSidebar() {
-  sidebar.classList.add('open');
-  sidebarOverlay.classList.add('active');
-  hamburger.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-function closeSidebar() {
-  sidebar.classList.remove('open');
-  sidebarOverlay.classList.remove('active');
-  hamburger.classList.remove('active');
-  document.body.style.overflow = '';
-}
+function openNav()  { sidebar.classList.add('open'); overlay.classList.add('active'); hamburger.classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeNav() { sidebar.classList.remove('open'); overlay.classList.remove('active'); hamburger.classList.remove('active'); document.body.style.overflow = ''; }
 
-hamburger.addEventListener('click', (e) => {
-  e.stopPropagation();
-  sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
-});
-sidebarOverlay.addEventListener('click', closeSidebar);
+hamburger.addEventListener('click', e => { e.stopPropagation(); sidebar.classList.contains('open') ? closeNav() : openNav(); });
+overlay.addEventListener('click', closeNav);
+document.querySelectorAll('.nav-link[href^="#"]').forEach(l => l.addEventListener('click', () => { if (window.innerWidth < 960) closeNav(); }));
 
-// Close on nav link click (mobile)
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', () => {
-    if (window.innerWidth < 900) closeSidebar();
-  });
-});
+/* ===========================
+   ACTIVE NAV
+=========================== */
+const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+const sections = document.querySelectorAll('section[id]');
 
-/* ============================================
-   ACTIVE NAV HIGHLIGHT ON SCROLL
-============================================ */
-const sections  = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.nav-link[href^="#"]');
-
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
       navLinks.forEach(l => l.classList.remove('active'));
-      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-      if (active) active.classList.add('active');
+      const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
     }
   });
-}, { threshold: 0.4, rootMargin: '-10% 0px -10% 0px' });
+}, { threshold: 0.35, rootMargin: '-5% 0px -5% 0px' });
+sections.forEach(s => io.observe(s));
 
-sections.forEach(s => sectionObserver.observe(s));
-
-/* ============================================
+/* ===========================
    REVEAL ON SCROLL
-============================================ */
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
+=========================== */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
 
-/* ============================================
-   PROJECT CARDS STAGGER REVEAL
-============================================ */
-const projectObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const cards = entry.target.querySelectorAll('.project-card, .skill-card');
-      cards.forEach((card, i) => {
-        card.style.transitionDelay = `${i * 0.07}s`;
-        card.classList.add('visible');
-      });
-      projectObserver.unobserve(entry.target);
-    }
+/* stagger grids */
+const gridObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.project-card, .skill-card').forEach((c, i) => {
+      c.classList.add('reveal');
+      setTimeout(() => c.classList.add('visible'), i * 75);
+    });
+    gridObs.unobserve(e.target);
   });
 }, { threshold: 0.05 });
+document.querySelectorAll('.projects-grid, .skills-grid').forEach(g => gridObs.observe(g));
 
-document.querySelectorAll('.projects-grid, .skills-grid').forEach(g => {
-  g.querySelectorAll('.project-card, .skill-card').forEach(c => c.classList.add('reveal'));
-  projectObserver.observe(g);
-});
-
-/* ============================================
+/* ===========================
    GALLERY CAROUSEL
-============================================ */
-const track      = document.getElementById('galleryTrack');
-const prevBtn    = document.getElementById('galleryPrev');
-const nextBtn    = document.getElementById('galleryNext');
-const dotsWrap   = document.getElementById('galleryDots');
-const cards      = track ? Array.from(track.querySelectorAll('.art-card')) : [];
+=========================== */
+const track    = document.getElementById('galleryTrack');
+const wrapper  = document.getElementById('galleryWrapper');
+const prevBtn  = document.getElementById('galleryPrev');
+const nextBtn  = document.getElementById('galleryNext');
+const dotsWrap = document.getElementById('galleryDots');
+const artCards = track ? Array.from(track.querySelectorAll('.art-card')) : [];
 
-let currentIndex = 0;
-let isDragging = false;
-let startX = 0;
-let startScrollLeft = 0;
+let cur = 0;
 
-function getVisibleCount() {
-  const w = window.innerWidth - (window.innerWidth >= 900 ? parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-w')) || 260 : 0);
-  const cardW = cards[0] ? cards[0].offsetWidth + 20 : 210;
-  return Math.max(1, Math.floor(w / cardW));
+function cardWidth() {
+  return artCards[0] ? artCards[0].getBoundingClientRect().width + 20 : 195;
 }
 
 function buildDots() {
   if (!dotsWrap) return;
   dotsWrap.innerHTML = '';
-  const total = cards.length;
-  for (let i = 0; i < total; i++) {
+  artCards.forEach((_, i) => {
     const d = document.createElement('button');
-    d.className = 'gallery-dot' + (i === currentIndex ? ' active' : '');
-    d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    d.className = 'gallery-dot' + (i === cur ? ' active' : '');
+    d.setAttribute('aria-label', `Slide ${i + 1}`);
     d.addEventListener('click', () => goTo(i));
     dotsWrap.appendChild(d);
-  }
+  });
 }
 
 function updateDots() {
   if (!dotsWrap) return;
-  dotsWrap.querySelectorAll('.gallery-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === currentIndex);
-  });
+  dotsWrap.querySelectorAll('.gallery-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
 }
 
-function goTo(index) {
-  currentIndex = Math.max(0, Math.min(index, cards.length - 1));
-  const card = cards[currentIndex];
-  if (card) {
-    const gap = 20;
-    const offset = card.offsetLeft - gap;
-    track.style.transform = `translateX(-${offset}px)`;
-  }
+function goTo(idx) {
+  cur = Math.max(0, Math.min(idx, artCards.length - 1));
+  const card = artCards[cur];
+  if (!card) return;
+  /* offset: card's left edge minus wrapper left minus gap offset */
+  const wRect = wrapper.getBoundingClientRect();
+  const cRect = card.getBoundingClientRect();
+  const currentOffset = parseFloat(track.style.transform.replace('translateX(', '').replace('px)', '') || 0);
+  const newOffset = currentOffset - (cRect.left - wRect.left) + 12;
+  track.style.transform = `translateX(${newOffset}px)`;
   updateDots();
 }
 
-if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
-if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
-
-// Drag / swipe on gallery wrapper
-const wrapper = track ? track.parentElement : null;
+/* drag / swipe */
+let dragStartX = 0, dragging = false;
 if (wrapper) {
-  wrapper.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.clientX;
-    startScrollLeft = currentIndex;
-    wrapper.style.userSelect = 'none';
+  wrapper.addEventListener('mousedown', e => { dragging = true; dragStartX = e.clientX; wrapper.classList.add('grabbing'); });
+  window.addEventListener('mouseup', e => {
+    if (!dragging) return; dragging = false; wrapper.classList.remove('grabbing');
+    const dx = dragStartX - e.clientX;
+    if (Math.abs(dx) > 45) goTo(dx > 0 ? cur + 1 : cur - 1);
   });
-  window.addEventListener('mouseup', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    wrapper.style.userSelect = '';
-    const diff = startX - e.clientX;
-    if (Math.abs(diff) > 40) {
-      goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
-    }
-  });
-
-  // Touch
-  wrapper.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    startScrollLeft = currentIndex;
-  }, { passive: true });
-  wrapper.addEventListener('touchend', (e) => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) {
-      goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
-    }
+  wrapper.addEventListener('touchstart', e => { dragStartX = e.touches[0].clientX; }, { passive: true });
+  wrapper.addEventListener('touchend', e => {
+    const dx = dragStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) goTo(dx > 0 ? cur + 1 : cur - 1);
   }, { passive: true });
 }
 
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
-  if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+if (prevBtn) prevBtn.addEventListener('click', () => goTo(cur - 1));
+if (nextBtn) nextBtn.addEventListener('click', () => goTo(cur + 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') goTo(cur - 1);
+  if (e.key === 'ArrowRight') goTo(cur + 1);
 });
 
-window.addEventListener('resize', () => goTo(currentIndex));
-if (cards.length) { buildDots(); goTo(0); }
+window.addEventListener('resize', () => { track.style.transform = 'translateX(0)'; cur = 0; updateDots(); });
 
-/* ============================================
+if (artCards.length) { buildDots(); }
+
+/* ===========================
    ART MODAL
-============================================ */
-const artModal = document.getElementById('art-modal');
+=========================== */
+const modal    = document.getElementById('art-modal');
 const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
 
-document.querySelectorAll('.art-card').forEach(card => {
+artCards.forEach(card => {
   card.addEventListener('click', () => {
-    const imgEl  = card.querySelector('.art-img');
-    const title  = card.dataset.title || '';
-    const desc   = card.dataset.desc  || '';
-    modalImg.style.backgroundImage = imgEl.style.backgroundImage;
-    artModal.classList.add('open');
+    const img = card.dataset.img;
+    if (!img) return;
+    modalImg.style.backgroundImage = `url('${img}')`;
+    modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   });
 });
 
-artModal.addEventListener('click', (e) => {
-  if (e.target === artModal || e.target.closest('.art-modal-close')) {
-    artModal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && artModal.classList.contains('open')) {
-    artModal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-});
+function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+if (modalClose) modalClose.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
