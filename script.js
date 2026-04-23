@@ -1,153 +1,220 @@
-const hamburger = document.getElementById('hamburger');
-const sidebar = document.querySelector('.sidebar');
-const links = document.querySelectorAll('.nav-list a');
-
-// Toggle sidebar & hamburger visibility
-hamburger.addEventListener('click', (e) => {
-  e.stopPropagation();                   // don’t trigger the document click
-  sidebar.classList.toggle('open');
-  hamburger.classList.toggle('hidden');
+/* ============================================
+   CURSOR GLOW
+============================================ */
+const cursorGlow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', (e) => {
+  cursorGlow.style.left = e.clientX + 'px';
+  cursorGlow.style.top  = e.clientY + 'px';
 });
 
-// Close on link click (mobile)
-links.forEach(link =>
-  link.addEventListener('click', () => {
-    if (window.innerWidth < 768) {
-      sidebar.classList.remove('open');
-      hamburger.classList.remove('hidden');
-    }
-  })
-);
+/* ============================================
+   HAMBURGER / SIDEBAR
+============================================ */
+const hamburger      = document.getElementById('hamburger');
+const sidebar        = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-// Close sidebar when clicking outside it
-document.addEventListener('click', (e) => {
-  if (
-    window.innerWidth < 768 &&
-    sidebar.classList.contains('open') &&
-    !sidebar.contains(e.target) &&   // clicked outside sidebar
-    !hamburger.contains(e.target)      // and not on the hamburger
-  ) {
-    sidebar.classList.remove('open');
-    hamburger.classList.remove('hidden');
+function openSidebar() {
+  sidebar.classList.add('open');
+  sidebarOverlay.classList.add('active');
+  hamburger.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  sidebarOverlay.classList.remove('active');
+  hamburger.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation();
+  sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+});
+sidebarOverlay.addEventListener('click', closeSidebar);
+
+// Close on nav link click (mobile)
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth < 900) closeSidebar();
+  });
+});
+
+/* ============================================
+   ACTIVE NAV HIGHLIGHT ON SCROLL
+============================================ */
+const sections  = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-link[href^="#"]');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4, rootMargin: '-10% 0px -10% 0px' });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ============================================
+   REVEAL ON SCROLL
+============================================ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============================================
+   PROJECT CARDS STAGGER REVEAL
+============================================ */
+const projectObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const cards = entry.target.querySelectorAll('.project-card, .skill-card');
+      cards.forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.07}s`;
+        card.classList.add('visible');
+      });
+      projectObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.projects-grid, .skills-grid').forEach(g => {
+  g.querySelectorAll('.project-card, .skill-card').forEach(c => c.classList.add('reveal'));
+  projectObserver.observe(g);
+});
+
+/* ============================================
+   GALLERY CAROUSEL
+============================================ */
+const track      = document.getElementById('galleryTrack');
+const prevBtn    = document.getElementById('galleryPrev');
+const nextBtn    = document.getElementById('galleryNext');
+const dotsWrap   = document.getElementById('galleryDots');
+const cards      = track ? Array.from(track.querySelectorAll('.art-card')) : [];
+
+let currentIndex = 0;
+let isDragging = false;
+let startX = 0;
+let startScrollLeft = 0;
+
+function getVisibleCount() {
+  const w = window.innerWidth - (window.innerWidth >= 900 ? parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-w')) || 260 : 0);
+  const cardW = cards[0] ? cards[0].offsetWidth + 20 : 210;
+  return Math.max(1, Math.floor(w / cardW));
+}
+
+function buildDots() {
+  if (!dotsWrap) return;
+  dotsWrap.innerHTML = '';
+  const total = cards.length;
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'gallery-dot' + (i === currentIndex ? ' active' : '');
+    d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  }
+}
+
+function updateDots() {
+  if (!dotsWrap) return;
+  dotsWrap.querySelectorAll('.gallery-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === currentIndex);
+  });
+}
+
+function goTo(index) {
+  currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+  const card = cards[currentIndex];
+  if (card) {
+    const gap = 20;
+    const offset = card.offsetLeft - gap;
+    track.style.transform = `translateX(-${offset}px)`;
+  }
+  updateDots();
+}
+
+if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+
+// Drag / swipe on gallery wrapper
+const wrapper = track ? track.parentElement : null;
+if (wrapper) {
+  wrapper.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    startScrollLeft = currentIndex;
+    wrapper.style.userSelect = 'none';
+  });
+  window.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    wrapper.style.userSelect = '';
+    const diff = startX - e.clientX;
+    if (Math.abs(diff) > 40) {
+      goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+    }
+  });
+
+  // Touch
+  wrapper.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startScrollLeft = currentIndex;
+  }, { passive: true });
+  wrapper.addEventListener('touchend', (e) => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+    }
+  }, { passive: true });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+  if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+});
+
+window.addEventListener('resize', () => goTo(currentIndex));
+if (cards.length) { buildDots(); goTo(0); }
+
+/* ============================================
+   ART MODAL
+============================================ */
+const artModal = document.getElementById('art-modal');
+const modalImg = document.getElementById('modalImg');
+
+document.querySelectorAll('.art-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const imgEl  = card.querySelector('.art-img');
+    const title  = card.dataset.title || '';
+    const desc   = card.dataset.desc  || '';
+    modalImg.style.backgroundImage = imgEl.style.backgroundImage;
+    artModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+artModal.addEventListener('click', (e) => {
+  if (e.target === artModal || e.target.closest('.art-modal-close')) {
+    artModal.classList.remove('open');
+    document.body.style.overflow = '';
   }
 });
 
-// Highlight active nav on scroll
-const sections = document.querySelectorAll('section');
-const navLinks = Array.from(links);
-
-function changeActive() {
-  let index = sections.length;
-  while (--index && window.scrollY + 100 < sections[index].offsetTop) { }
-  navLinks.forEach(l => l.classList.remove('active'));
-  navLinks[index].classList.add('active');
-}
-
-changeActive();
-window.addEventListener('scroll', changeActive);
-
-
-
-// -----------------------------------------------------------------
-// IntersectionObserver for scroll‑into‑view animations
-// -----------------------------------------------------------------
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const animObserver = new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('anim-show');
-      obs.unobserve(entry.target);
-    }
-  });
-}, observerOptions);
-
-// find all elements that should animate on scroll or load
-const toAnimate = document.querySelectorAll('.anim-hidden');
-toAnimate.forEach(el => animObserver.observe(el));
-
-// -----------------------------------------------------------------
-// Page‑load stagger for initial animation
-// -----------------------------------------------------------------
-window.addEventListener('load', () => {
-  // we’ll stagger them by 100ms
-  toAnimate.forEach((el, i) => {
-    // only fire those already in view — others will come in via the observer
-    if (el.getBoundingClientRect().top < window.innerHeight) {
-      setTimeout(() => el.classList.add('anim-show'), i * 100);
-    }
-  });
-});
-
-// ----------------------
-// Art Gallery Modal Logic
-// ----------------------
-const artModal = document.getElementById('art-modal');
-const artModalImg = artModal.querySelector('.art-modal-img');
-const artModalCaption = artModal.querySelector('.art-modal-caption');
-const artModalClose = artModal.querySelector('.art-modal-close');
-
-// Open modal on art card click
-document.querySelectorAll('.art-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-        // Prevent bubbling if clicking the close button
-        if (e.target.closest('.art-modal-close')) return;
-
-        const imgDiv = card.querySelector('.art-img');
-        const info = card.querySelector('.project-info');
-        const bgImg = imgDiv.style.backgroundImage.slice(5, -2); // remove url("...")
-
-        artModalImg.style.backgroundImage = imgDiv.style.backgroundImage;
-        artModalCaption.innerHTML = info.innerHTML;
-        artModal.classList.add('open');
-        document.body.style.overflow = 'hidden'; // prevent background scroll
-    });
-});
-
-// Close modal on close button or clicking outside content
-artModal.addEventListener('click', (e) => {
-    if (
-        e.target === artModal ||
-        e.target.classList.contains('art-modal-close')
-    ) {
-        artModal.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-});
-
-// Optional: ESC key closes modal
 document.addEventListener('keydown', (e) => {
-    if (artModal.classList.contains('open') && e.key === 'Escape') {
-        artModal.classList.remove('open');
-        document.body.style.overflow = '';
-    }
+  if (e.key === 'Escape' && artModal.classList.contains('open')) {
+    artModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 });
-
-
-
-function createBubble() {
-    const container = document.querySelector('.bubble-container');
-    const bubble = document.createElement('div');
-    bubble.classList.add('bubble');
-
-    // Smaller size
-    const size = Math.random() * 8 + 7; // 7px to 15px
-    bubble.style.width = `${size}px`;
-    bubble.style.height = `${size}px`;
-    bubble.style.left = `${Math.random() * 98}%`;
-
-    // Slower animation
-    bubble.style.animationDuration = `${4.5 + Math.random()}s`;
-
-    container.appendChild(bubble);
-
-    bubble.addEventListener('animationend', () => {
-        bubble.remove();
-    });
-}
-
-// Less frequent bubbles for subtlety
-setInterval(createBubble, 600); // every 600ms
