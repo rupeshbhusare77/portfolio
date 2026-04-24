@@ -36,9 +36,22 @@ burger.addEventListener('click',e=>{
 });
 overlay.addEventListener('click', closeSidebar);
 
-/* close on nav anchor click (mobile) */
-document.querySelectorAll('.nav-link[href^="#"]').forEach(l=>{
-  l.addEventListener('click',()=>{ if(window.innerWidth<960) closeSidebar(); });
+/* close sidebar on ALL nav link clicks (mobile) */
+document.querySelectorAll('.nav-link').forEach(l=>{
+  l.addEventListener('click',()=>{ 
+    if(window.innerWidth < 960) {
+      closeSidebar();
+    }
+  });
+});
+
+/* close sidebar when clicking outside */
+document.addEventListener('click', e=>{
+  if(window.innerWidth < 960 && sidebar.classList.contains('open')) {
+    if(!sidebar.contains(e.target) && !burger.contains(e.target)) {
+      closeSidebar();
+    }
+  }
 });
 
 /* ═══════════════════════════
@@ -99,7 +112,8 @@ const countEl  = document.getElementById('galleryCount');
 const cards    = track ? Array.from(track.querySelectorAll('.art-card')) : [];
 
 let cur = 0;
-let tX  = 0; /* current translateX in px */
+let tX  = 0;
+let wasGalleryDragged = false;
 
 /* build dots */
 function buildDots(){
@@ -132,14 +146,11 @@ function goTo(idx){
   if(!cards.length) return;
   cur = Math.max(0, Math.min(idx, cards.length-1));
 
-  /* measure how far the target card's left edge is from wrapper left */
   const wLeft = wrapper.getBoundingClientRect().left;
   const cLeft = cards[cur].getBoundingClientRect().left;
-  /* cLeft already includes current tX, so delta needed: */
   const delta = cLeft - wLeft;
   tX -= delta;
 
-  /* clamp: never push first card past padding start */
   const paddingLeft = parseFloat(getComputedStyle(track).paddingLeft) || 0;
   tX = Math.min(paddingLeft, tX);
 
@@ -172,7 +183,10 @@ if(wrapper){
     isDragging = false;
     wrapper.classList.remove('grabbing');
     const dx = dragStartX - e.clientX;
-    if(Math.abs(dx) > 50) goTo(dx > 0 ? cur+1 : cur-1);
+    if(Math.abs(dx) > 50) {
+      wasGalleryDragged = true;
+      goTo(dx > 0 ? cur+1 : cur-1);
+    }
     else { tX = dragStartTX; applyTransform(tX); }
   });
 
@@ -184,7 +198,10 @@ if(wrapper){
 
   wrapper.addEventListener('touchend', e=>{
     const dx = touchStartX - e.changedTouches[0].clientX;
-    if(Math.abs(dx) > 40) goTo(dx > 0 ? cur+1 : cur-1);
+    if(Math.abs(dx) > 40) {
+      wasGalleryDragged = true;
+      goTo(dx > 0 ? cur+1 : cur-1);
+    }
   },{passive:true});
 }
 
@@ -196,12 +213,17 @@ document.addEventListener('keydown', e=>{
   if(e.key==='ArrowRight') goTo(cur+1);
 });
 
+/* Debounced resize */
+let resizeTimeout;
 window.addEventListener('resize',()=>{
-  tX = 0;
-  track.style.transition = 'none';
-  track.style.transform = 'translateX(0)';
-  cur = 0;
-  updateUI();
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(()=>{
+    tX = 0;
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0)';
+    cur = 0;
+    updateUI();
+  }, 250);
 });
 
 if(cards.length){ buildDots(); updateUI(); }
@@ -215,21 +237,22 @@ const modalCap   = document.getElementById('modalCaption');
 const modalBg    = document.getElementById('modalBackdrop');
 const modalClose = document.getElementById('modalClose');
 
-/* attach click to EVERY art card */
+/* Attach click to EVERY art card */
 cards.forEach(card=>{
   card.addEventListener('click', e=>{
-    /* don't fire if user was dragging */
-    if(Math.abs(dragStartX - (e.clientX||dragStartX)) > 8) return;
+    /* Don't fire if user was dragging the gallery */
+    if(wasGalleryDragged) {
+      wasGalleryDragged = false;
+      return;
+    }
 
-    const img   = card.dataset.img;
-    const title = card.dataset.title || '';
-    const sub   = card.dataset.sub   || '';
+    const img = card.dataset.img;
     if(!img || !modal) return;
 
+    /* Set image - this will display in modal-img */
     modalImg.style.backgroundImage = `url('${img}')`;
-    if(modalCap){
-      modalCap.innerHTML = `<h4>${title}</h4><p>${sub}</p>`;
-    }
+    
+    /* Open modal */
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   });
